@@ -6,7 +6,6 @@
 #include "ApplicationClass.hpp"
 #include <X11/Xlib.h>
 
-
 class SystemClass {
 public:
   SystemClass();

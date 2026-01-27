@@ -1,5 +1,5 @@
 #include "SystemClass.hpp"
-#include "glad/glad.h"
+#include "ApplicationClass.hpp"
 #include <X11/X.h>
 #include <X11/Xlib.h>
 #include <cstddef>
@@ -27,9 +27,19 @@ bool SystemClass::Initialize() {
 
   result = InitializeWindow(screenWidth, screenHeight);
 
-  if (result) {
+  if (!result) {
     return false;
   }
+
+  m_Application = new ApplicationClass;
+
+  result = m_Application->Initialize(m_videoDisplay, m_hwnd, screenWidth,
+                                     screenHeight);
+
+  if (!result) {
+    return false;
+  }
+  return true;
 }
 
 void SystemClass::Shutdown() {
@@ -269,5 +279,4 @@ void SystemClass::ReadInput() {
     }
   }
   return;
-}
 }

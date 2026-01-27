@@ -21,7 +21,7 @@ bool OpenGLClass::Initialize(Display *display, Window win, int screenWidth,
   m_screenWidth = screenWidth;
 
   result = LoadExtensionList();
-  if (result) {
+  if (!result) {
     return false;
   }
 
@@ -59,6 +59,8 @@ bool OpenGLClass::Initialize(Display *display, Window win, int screenWidth,
 
   return true;
 }
+
+void OpenGLClass::Shutdown() { return; }
 
 void OpenGLClass::BeginScene(float red, float green, float blue, float alpha) {
   glClearColor(red, green, blue, alpha);
@@ -817,4 +819,3 @@ bool OpenGLClass::LoadExtensionList() {
 
   return true;
 }
-

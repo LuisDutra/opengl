@@ -1,26 +1,24 @@
 #include "SystemClass.hpp"
-#include <ostream>
 #include <iostream>
+#include <ostream>
 
 int main() {
-    SystemClass* System;
-    bool result;
+  SystemClass *System;
+  bool result;
 
-    System = new SystemClass;
+  System = new SystemClass;
 
-    result = System->Initialize();
+  result = System->Initialize();
 
-    if(!result){
-        return -1;
-    }else{
-        std::cout << "Positivo" << std::endl;
-    }
+  if (!result) {
+    return -1;
+  }
 
-    System->Frame();
+  System->Frame();
 
-    System->Shutdown();
-    delete System;
-    System = 0;
+  System->Shutdown();
+  delete System;
+  System = 0;
 
-    return 0;
+  return 0;
 }
