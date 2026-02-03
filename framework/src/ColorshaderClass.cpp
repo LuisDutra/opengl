@@ -236,3 +236,41 @@ void ColorShaderClass::OutputLinkerErrorMessage(unsigned int programId) {
 
   return;
 }
+
+bool ColorShaderClass::SetShaderParameters(float *worldMatrix,
+                                           float *viewMatrix,
+                                           float *projectionMatrix) {
+  float tpWorldMatrix[16], tpViewMatrix[16], tpProjectionMatrix[16];
+  int location;
+
+  m_OpenGLPtr->MatrixTranspose(tpWorldMatrix, worldMatrix);
+  m_OpenGLPtr->MatrixTranspose(tpViewMatrix, viewMatrix);
+  m_OpenGLPtr->MatrixTranspose(tpProjectionMatrix, projectionMatrix);
+
+  m_OpenGLPtr->glUseProgram(m_shaderProgram);
+
+  location = m_OpenGLPtr->glGetUniformLocation(m_shaderProgram, "worldMatrix");
+
+  if (location == -1) {
+    cout << "Worl matrix is not set" << endl;
+  }
+
+  m_OpenGLPtr->glUniformMatrix4fv(location, 1, false, tpViewMatrix);
+
+  location = m_OpenGLPtr->glGetUniformLocation(m_shaderProgram, "viewMatrix");
+
+  if (location == -1) {
+    cout << "View matrix is not set." << endl;
+  }
+  m_OpenGLPtr->glUniformMatrix4fv(location, 1, false, tpViewMatrix);
+
+  // Set the projection matrix in the vertex shader.
+  location =
+      m_OpenGLPtr->glGetUniformLocation(m_shaderProgram, "projectionMatrix");
+  if (location == -1) {
+    cout << "Projection matrix is not set." << endl;
+  }
+  m_OpenGLPtr->glUniformMatrix4fv(location, 1, false, tpProjectionMatrix);
+
+  return true;
+}
