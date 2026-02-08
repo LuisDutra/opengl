@@ -8,7 +8,10 @@ const bool VSYNC_ENABLED = true;
 const float SCREEN_NEAR = 0.3f;
 const float SCREEN_DEPTH = 1000.0f;
 
+#include "CameraClass.hpp"
+#include "ColorshaderClass.hpp"
 #include "InputClass.hpp"
+#include "ModelClass.hpp"
 #include "OpenglClass.hpp"
 
 class ApplicationClass {
@@ -24,6 +27,9 @@ public:
 private:
   bool Render();
   OpenGLClass *m_OpenGL;
+  ColorShaderClass *m_ColorShader;
+  ModelClass *m_Model;
+  CameraClass *m_Camera;
 };
 
 #endif
